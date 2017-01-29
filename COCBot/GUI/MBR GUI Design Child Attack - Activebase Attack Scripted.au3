@@ -69,7 +69,7 @@ Local $x = 25, $y = 20
 			_GUICtrlSetTip(-1, $txtTip)
 			GUICtrlSetOnEvent(-1, "DuplicateScriptAB")
 
-		$y += 108
+		$y += 110
 		$btnAttNowLB = GUICtrlCreateButton(GetTranslated(607, 34, -1), $x + 75, $y - 20, 80, -1)
 			;GUISetState(@SW_SHOW)
 			GUICtrlSetOnEvent(-1, "AttackNowLB")
