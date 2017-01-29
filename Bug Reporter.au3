@@ -191,7 +191,7 @@ Func Screen4()
 
 			Case $btnFinish
 				GUIDelete($Step4)
-				ShellExecute("https://mybot.run/forums/index.php?/topic/27601-mybotrun-dococ-v351-dec-sc-update/&page=3#replyForm")
+				ShellExecute("https://mybot.run/forums/index.php?/topic/25631-mods-mybot-v653-dococ-aio-mod-v082-update-2901/")
 				Exit
 		EndSwitch
 	WEnd
