@@ -213,7 +213,7 @@ SetLog("===============================================", $COLOR_RED) ; Message 
 SetLog(" ", $COLOR_RED) ; Message Log at start
 
 ;~ Update profile to write config for SwitchAcc Mode - DEMEN
-;~ btnUpdateProfile()
+btnUpdateProfile()
 
 $sMsg = GetTranslated(500, 9, "Android Shield not available for %s", @OSVersion)
 If $AndroidShieldEnabled = False Then
