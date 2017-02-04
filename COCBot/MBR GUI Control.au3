@@ -872,6 +872,7 @@ Func BotRestore($sCaller)
 		SetDebugLog("Bot Window '" & $Title & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
 		WinMove2($frmBot, "", $aPos[0], $aPos[1])
 	EndIf
+	WinSetTrans($frmBot, "", 255) ; is set to 1 when "Hide when minimized" is enabled after some time, so restore it
 	ReleaseMutex($hMutex)
 EndFunc   ;==>BotRestore
 

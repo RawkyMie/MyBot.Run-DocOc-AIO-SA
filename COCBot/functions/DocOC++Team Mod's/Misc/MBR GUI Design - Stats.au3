@@ -115,11 +115,9 @@ Global $aStartHide[8], $aSecondHide[8],$aEndHide[8]
 
 		GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-		If $i > $nTotalProfile - 1 Then
-			For $j = $aStartHide[$i] To $aEndHide[$i]
-				GUICtrlSetState($j, $GUI_HIDE)
-			Next
-		EndIf
+		For $j = $aStartHide[$i] To $aEndHide[$i]
+			GUICtrlSetState($j, $GUI_HIDE)
+		Next
 
 	Next
 

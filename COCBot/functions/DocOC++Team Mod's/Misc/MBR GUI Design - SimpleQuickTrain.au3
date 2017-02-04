@@ -23,28 +23,28 @@ $x = 30
 $y += 25
 
 	$chkSimpleQuickTrain = GUICtrlCreateCheckbox(GetTranslated(680,2, "Do not Remove Queued Troops"), $x, $y, -1, 15)
-		GUICtrlSetState(-1, $GUI_DISABLE)
+;~		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlSetState(-1, $GUI_HIDE)
 		GUICtrlSetOnEvent(-1, "chkSimpleQuickTrain")
 
 $y += 25
 	$chkFillArcher = GUICtrlCreateCheckbox(GetTranslated(680,3, "Fill Barracks with Arch:"), $x, $y, 135, 15)
-		GUICtrlSetState(-1, $GUI_DISABLE)
+;~		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlSetState(-1, $GUI_HIDE)
 
 	$txtFillArcher = GUICtrlCreateInput("5", $x + 140, $y-2, 20, 18, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-		GUICtrlSetState(-1, $GUI_DISABLE)
+;~		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlSetState(-1, $GUI_HIDE)
 		GUICtrlSetLimit(-1, 2)
 
 $y += 25
 	$chkFillEQ = GUICtrlCreateCheckbox(GetTranslated(680,4, "Fill Barracks with 1 EQ"), $x, $y, -1, 15)
-		GUICtrlSetState(-1, $GUI_DISABLE)
+;~		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlSetState(-1, $GUI_HIDE)
 
 $y += 25
 	$chkTrainDonated = GUICtrlCreateCheckbox(GetTranslated(680,5, "Train Donated Troops"), $x, $y, -1, 15)
-		GUICtrlSetState(-1, $GUI_DISABLE)
+;~		GUICtrlSetState(-1, $GUI_DISABLE)
 		GUICtrlSetState(-1, $GUI_HIDE)
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)

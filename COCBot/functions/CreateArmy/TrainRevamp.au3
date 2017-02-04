@@ -60,7 +60,14 @@ Func TrainRevamp()
 			DeleteQueued("Spells")
 			If _Sleep(500) Then Return
 
-			CheckCamp()
+			If GUICtrlRead($hRadio_Army12) = $GUI_CHECKED Or GUICtrlRead($hRadio_Army123) = $GUI_CHECKED Then
+				QuickTrain(1, False, False)
+				QuickTrain(2, False, False)
+				If GUICtrlRead($hRadio_Army123) = $GUI_CHECKED Then QuickTrain(3, False, False)
+				ClickP($aAway, 2, 0, "#0346") ;Click Away
+			Else
+				CheckCamp()
+			EndIf
 
 			ResetVariables("donated")
 
@@ -103,21 +110,7 @@ Func CheckCamp($NeedOpenArmy = False, $CloseCheckCamp = False)
 	If $ReturnCamp = 1 Then
 		OpenTrainTabNumber($QuickTrainTAB)
 		If _Sleep(1000) Then Return
-		If $Num > 0 Then
-			TrainArmyNumber($Num)
-		Else
-			Setlog(" » Quick Train Combo Army")
-			If $Runstate = False Then Return
-			If ISArmyWindow(True, $QuickTrainTAB) Then
-				For $i = 1 to 3
-					Setlog(" » TrainArmy Number: " & $i, $COLOR_ORANGE)
-					Click(817, 248 + 118*$i)
-					If $i = 2 And GUICtrlRead($hRadio_Army12)  = $GUI_CHECKED Then ExitLoop
-				Next
-			Else
-				Setlog(" » Error Clicking On Army! You are not on Quick Train Window", $COLOR_RED)
-			EndIf
-		EndIf
+		TrainArmyNumber($Num)
 		If _Sleep(700) Then Return
 	EndIf
 	If $ReturnCamp = 0 Then
@@ -2015,7 +2008,7 @@ Func OpenTrainTabNumber($Num)
 	If IsTrainPage() Then
 		Click($TabNumber[$Num][0], $TabNumber[$Num][1], 2, 200)
 		Setlog(" - Opening the " & $Message[$Num], $COLOR_ACTION1)
-		If _Sleep(1500) Then Return
+		If _Sleep(500) Then Return
 		If ISArmyWindow(False, $Num) Then
 			;If $Num = $BrewSpellsTAB Then CheckForSantaSpell() ; Can be Deleted after DEC (in 2017 :P)
 			;If $Num = $TrainTroopsTAB Then ICEWizardDetection() ; Can be Deleted after DEC (in 2017 :P)
@@ -2153,67 +2146,87 @@ Func MakingDonatedTroops()
 		If ISArmyWindow(True, $TrainTroopsTAB) = False Then Return
 
 		For $i = 0 To UBound($DefaultTroopGroup, 1) - 1
-			If $Runstate = False Then Return
-			$Plural = 0
-			If $DefaultTroopGroup[$i][4] > 0 Then
-				$RemainTrainSpace = GetOCRCurrent(48, 160)
-				If $RemainTrainSpace[0] = $RemainTrainSpace[1] Then ; army camps full
-					;Camps Full All Donate Counters should be zero!!!!
-					For $j = 0 To UBound($DefaultTroopGroup, 1) - 1
-						$DefaultTroopGroup[$j][4] = 0
-					Next
-					ExitLoop
-				EndIf
 
-				If $DefaultTroopGroup[$i][2] * $DefaultTroopGroup[$i][4] <= $RemainTrainSpace[2] Then ; Troopheight x donate troop qty <= avaible train space
-					;Local $pos = GetTrainPos(Eval("e" & $DefaultTroopGroup[$i][0]))
+			If $ichkTrainDonated = 1 And $ichkUseQTrain = 1 Then; Train donated troops - SimpleQuickTrain - DEMEN
+				If $DefaultTroopGroup[$i][4] > 0 Then
 					Local $howMuch = $DefaultTroopGroup[$i][4]
 					If $DefaultTroopGroup[$i][5] = "e" Then
-						TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
-						;PureClick($pos[0], $pos[1], $howMuch, 500)
+						TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, 500)		; - DEMEN
 					Else
-						ClickDrag(715, 445 + $midOffsetY, 220, 445 + $midOffsetY, 2000) ; Click drag for dark Troops
-						TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
-						;PureClick($pos[0], $pos[1], $howMuch, 500)
-						ClickDrag(220, 445 + $midOffsetY, 725, 445 + $midOffsetY, 2000) ; Click drag for Elixer Troops
+						ClickDrag(616, 445 + $midOffsetY, 400, 445 + $midOffsetY, 2000) ; Click drag for dark Troops
+						TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, 500)		; - DEMEN
+						ClickDrag(400, 445 + $midOffsetY, 616, 445 + $midOffsetY, 2000) ; Click drag for Elixer Troops
 					EndIf
 					If $DefaultTroopGroup[$i][4] > 1 Then $Plural = 1
 					Setlog(" - Trained " & $DefaultTroopGroup[$i][4] & " " & NameOfTroop(Eval("e" & $DefaultTroopGroup[$i][0]), $Plural), $COLOR_ACTION)
 					$DefaultTroopGroup[$i][4] = 0
 					If _Sleep(1000) Then Return ; Needed Delay, OCR was not picking up Troop Changes
-				Else
-					For $z = 0 To $RemainTrainSpace[2] - 1
-						$RemainTrainSpace = GetOCRCurrent(48, 160)
-						If $RemainTrainSpace[0] = $RemainTrainSpace[1] Then ; army camps full
-							;Camps Full All Donate Counters should be zero!!!!
-							For $j = 0 To UBound($DefaultTroopGroup, 1) - 1
-								$DefaultTroopGroup[$j][4] = 0
-							Next
-							ExitLoop (2) ;
-						EndIf
-						If $DefaultTroopGroup[$i][2] <= $RemainTrainSpace[2] And $DefaultTroopGroup[$i][4] > 0 Then
-							;TrainIt(Eval("e" & $TroopName[$i]), 1, $isldTrainITDelay)
-							;Local $pos = GetTrainPos(Eval("e" & $DefaultTroopGroup[$i][0]))
-							Local $howMuch = 1
-							If $TroopType[$i] = "e" Then
-								TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
-								;PureClick($pos[0], $pos[1], $howMuch, 500)
-							Else
-								ClickDrag(715, 445 + $midOffsetY, 220, 445 + $midOffsetY, 2000) ; Click drag for dark Troops
-								TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
-								;PureClick($pos[0], $pos[1], $howMuch, 500)
-								ClickDrag(220, 445 + $midOffsetY, 725, 445 + $midOffsetY, 2000) ; Click drag for Elixer Troops
-							EndIf
-							If $DefaultTroopGroup[$i][4] > 1 Then $Plural = 1
-							Setlog(" - Trained " & $DefaultTroopGroup[$i][4] & " " & NameOfTroop(Eval("e" & $DefaultTroopGroup[$i][0]), $Plural), $COLOR_ACTION)
-							$DefaultTroopGroup[$i][4] -= 1
-							If _Sleep(1000) Then Return ; Needed Delay, OCR was not picking up Troop Changes
-						Else
-							ExitLoop
-						EndIf
-					Next
 				EndIf
-			EndIf
+
+			Else
+
+				If $Runstate = False Then Return
+				$Plural = 0
+				If $DefaultTroopGroup[$i][4] > 0 Then
+					$RemainTrainSpace = GetOCRCurrent(48, 160)
+					If $RemainTrainSpace[0] = $RemainTrainSpace[1] Then ; army camps full
+						;Camps Full All Donate Counters should be zero!!!!
+						For $j = 0 To UBound($DefaultTroopGroup, 1) - 1
+							$DefaultTroopGroup[$j][4] = 0
+						Next
+						ExitLoop
+					EndIf
+
+					If $DefaultTroopGroup[$i][2] * $DefaultTroopGroup[$i][4] <= $RemainTrainSpace[2] Then ; Troopheight x donate troop qty <= avaible train space
+						;Local $pos = GetTrainPos(Eval("e" & $DefaultTroopGroup[$i][0]))
+						Local $howMuch = $DefaultTroopGroup[$i][4]
+						If $DefaultTroopGroup[$i][5] = "e" Then
+							TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
+							;PureClick($pos[0], $pos[1], $howMuch, 500)
+						Else
+							ClickDrag(715, 445 + $midOffsetY, 220, 445 + $midOffsetY, 2000) ; Click drag for dark Troops
+							TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
+							;PureClick($pos[0], $pos[1], $howMuch, 500)
+							ClickDrag(220, 445 + $midOffsetY, 725, 445 + $midOffsetY, 2000) ; Click drag for Elixer Troops
+						EndIf
+						If $DefaultTroopGroup[$i][4] > 1 Then $Plural = 1
+						Setlog(" - Trained " & $DefaultTroopGroup[$i][4] & " " & NameOfTroop(Eval("e" & $DefaultTroopGroup[$i][0]), $Plural), $COLOR_ACTION)
+						$DefaultTroopGroup[$i][4] = 0
+						If _Sleep(1000) Then Return ; Needed Delay, OCR was not picking up Troop Changes
+					Else
+						For $z = 0 To $RemainTrainSpace[2] - 1
+							$RemainTrainSpace = GetOCRCurrent(48, 160)
+							If $RemainTrainSpace[0] = $RemainTrainSpace[1] Then ; army camps full
+								;Camps Full All Donate Counters should be zero!!!!
+								For $j = 0 To UBound($DefaultTroopGroup, 1) - 1
+									$DefaultTroopGroup[$j][4] = 0
+								Next
+								ExitLoop (2) ;
+							EndIf
+							If $DefaultTroopGroup[$i][2] <= $RemainTrainSpace[2] And $DefaultTroopGroup[$i][4] > 0 Then
+								;TrainIt(Eval("e" & $TroopName[$i]), 1, $isldTrainITDelay)
+								;Local $pos = GetTrainPos(Eval("e" & $DefaultTroopGroup[$i][0]))
+								Local $howMuch = 1
+								If $TroopType[$i] = "e" Then
+									TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
+									;PureClick($pos[0], $pos[1], $howMuch, 500)
+								Else
+									ClickDrag(715, 445 + $midOffsetY, 220, 445 + $midOffsetY, 2000) ; Click drag for dark Troops
+									TrainIt(Eval("e" & $DefaultTroopGroup[$i][0]), $howMuch, $isldTrainITDelay)
+									;PureClick($pos[0], $pos[1], $howMuch, 500)
+									ClickDrag(220, 445 + $midOffsetY, 725, 445 + $midOffsetY, 2000) ; Click drag for Elixer Troops
+								EndIf
+								If $DefaultTroopGroup[$i][4] > 1 Then $Plural = 1
+								Setlog(" - Trained " & $DefaultTroopGroup[$i][4] & " " & NameOfTroop(Eval("e" & $DefaultTroopGroup[$i][0]), $Plural), $COLOR_ACTION)
+								$DefaultTroopGroup[$i][4] -= 1
+								If _Sleep(1000) Then Return ; Needed Delay, OCR was not picking up Troop Changes
+							Else
+								ExitLoop
+							EndIf
+						Next
+					EndIf
+				EndIf
+			EndIf ; Train donated troops - SimpleQuickTrain - DEMEN
 		Next
 		;Top Off any remianing space with archers
 		$RemainTrainSpace = GetOCRCurrent(48, 160)

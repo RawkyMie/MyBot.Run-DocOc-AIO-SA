@@ -6,7 +6,7 @@
 *.log
 *.orig
 *.png
-#*.jpg
+*.jpg
 #*.exe
 *.bmp
 *.zip

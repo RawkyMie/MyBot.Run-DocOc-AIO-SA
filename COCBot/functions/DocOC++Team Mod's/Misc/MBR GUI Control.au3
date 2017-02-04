@@ -13,7 +13,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 
-; GUI Control for SwitchAcc Mode - DEMEN
+; SwitchAcc Mode - DEMEN
 Func btnUpdateProfile()
 
 	saveConfig()
@@ -35,11 +35,9 @@ Func btnUpdateProfile()
 				For $j = $aStartHide[$i] To $aEndHide[$i]
 					GUICtrlSetState($j, $GUI_SHOW)
 				Next
-
 				Switch $aProfileType[$i]
 					Case 1
 						GUICtrlSetData($grpVillageAcc[$i], "Village: " & $ProfileList[$i+1] & " (Active)")
-
 					Case 2
 						GUICtrlSetData($grpVillageAcc[$i], "Village: " & $ProfileList[$i+1] & " (Donate)")
 						For $j = $aSecondHide[$i] To $aEndHide[$i]
@@ -59,6 +57,14 @@ Func btnUpdateProfile()
 			For $j = $lblProfileNo[$i] To $cmbProfileType[$i]
 				GUICtrlSetState($j, $GUI_HIDE)
 			Next
+
+			; Update stats GUI
+			If $i <= 3 Then
+				For $j = $aStartHide[$i] To $aEndHide[$i]
+					GUICtrlSetState($j, $GUI_HIDE)
+				Next
+			EndIf
+
 		EndIf
 	Next
 
@@ -164,8 +170,10 @@ Func btnLocateAcc()
 
 	Local $AccNo = _GUICtrlComboBox_GetCurSel($cmbLocateAcc) + 1
 	Local $stext, $MsgBox
+
 	Local $wasRunState = $RunState
 	$RunState = True
+
 	SetLog(GetTranslated(655,95, "Locating Y-Coordinate of CoC Account No. ") & $AccNo & GetTranslated(655,96, ", please wait..."), $COLOR_BLUE)
 	WinGetAndroidHandle()
 
@@ -209,7 +217,6 @@ Func btnClearAccLocation()
 	Setlog(GetTranslated(655,104, "Position of all accounts cleared"))
 	saveConfig()
 EndFunc
-; ============= SwitchAcc Mode ============= - DEMEN
 
 ; Classic Four Finger
 Func cmbDeployAB() ; avoid conflict between FourFinger and SmartAttack - DEMEN
@@ -432,21 +439,29 @@ Func cmbSwLang();Added Multi Switch Language by rulesss and kychera
  EndSwitch
 EndFunc
 
-; GUI Control for SimpleQuickTrain - Added by NguyenAnhHD
-Global Const $grpTrainTroops2=$grpTrainTroopsGUI&"#"&$icnBarb&"#"&$txtLevBarb&"#"&$icnArch&"#"&$txtLevArch&"#"&$icnGiant&"#"&$txtLevGiant&"#"&$icnGobl&"#"&$txtLevGobl&"#"&$icnWall&"#"&$txtLevWall&"#"&$icnBall&"#"&$txtLevBall&"#"&$icnWiza&"#"&$txtLevWiza&"#"&$icnHeal&"#"&$txtLevHeal&"#"&$icnDrag&"#"&$txtLevDrag&"#"&$icnPekk&"#"&$txtLevPekk&"#"&$icnBabyD&"#"&$txtLevBabyD&"#"&$icnMine&"#"&$txtLevMine&"#"&$icnMini&"#"&$txtLevMini&"#"&$icnHogs&"#"&$txtLevHogs&"#"&$icnValk&"#"&$txtLevValk&"#"&$icnGole&"#"&$txtLevGole&"#"&$icnWitc&"#"&$txtLevWitc&"#"&$icnLava&"#"&$txtLevLava&"#"&$icnBowl&"#"&$txtLevBowl
-Global Const $grpSimpleQT=$grpSimpleQuickTrain&"#"&$chkSimpleQuickTrain&"#"&$chkFillArcher&"#"&$txtFillArcher&"#"&$chkFillEQ&"#"&$chkTrainDonated
+; SimpleQuickTrain - Added by NguyenAnhHD
 Func GUIControlForSimpleQTrain()
+
 	If GUICtrlRead($hChk_UseQTrain) = $GUI_CHECKED Then
-		_GUI_Value_STATE("SHOW", $hRadio_Army12 & "#" & $hRadio_Army123 & "#" & $grpSimpleQT)
 		_GUI_Value_STATE("ENABLE", $hRadio_Army12 & "#" & $hRadio_Army123)
-		_GUI_Value_STATE("HIDE", $LblRemovecamp & "#" & $icnRemovecamp & "#" & $grpTrainTroops & "#" & $grpTrainTroops2)
+		_GUI_Value_STATE("SHOW", $hRadio_Army12 & "#" & $hRadio_Army123)
+		_GUI_Value_STATE("HIDE", $LblRemovecamp & "#" &  $icnRemovecamp)
+		For $i = $grpTrainTroopsGUI To $txtNumLava
+			GUICtrlSetState($i, $GUI_HIDE)
+		Next
+		_GUI_Value_STATE("SHOW", $grpSimpleQuickTrain & "#" & $chkSimpleQuickTrain & "#" & $chkFillArcher & "#" & $txtFillArcher & "#" & $chkFillEQ & "#" & $chkTrainDonated)
 		_GUI_Value_STATE("ENABLE", $chkSimpleQuickTrain & "#" & $chkFillArcher & "#" & $txtFillArcher & "#" & $chkFillEQ & "#" & $chkTrainDonated)
 		chkSimpleQuickTrain()
 	Else
 		_GUI_Value_STATE("DISABLE", $hRadio_Army12 & "#" & $hRadio_Army123)
-		_GUI_Value_STATE("HIDE", $hRadio_Army12 & "#" & $hRadio_Army123 & "#" & $grpSimpleQT)
-		_GUI_Value_STATE("SHOW", $LblRemovecamp & "#" &  $icnRemovecamp & "#" & $grpTrainTroops & "#" & $grpTrainTroops2)
+		_GUI_Value_STATE("HIDE", $hRadio_Army12 & "#" & $hRadio_Army123)
+		_GUI_Value_STATE("SHOW", $LblRemovecamp & "#" &  $icnRemovecamp)
+
+		_GUI_Value_STATE("HIDE", $grpSimpleQuickTrain & "#" & $chkSimpleQuickTrain & "#" & $chkFillArcher & "#" & $txtFillArcher & "#" & $chkFillEQ & "#" & $chkTrainDonated)
 		_GUI_Value_STATE("DISABLE", $chkSimpleQuickTrain & "#" & $chkFillArcher & "#" & $txtFillArcher & "#" & $chkFillEQ & "#" & $chkTrainDonated)
+		For $i = $grpTrainTroopsGUI To $txtNumLava
+			GUICtrlSetState($i, $GUI_SHOW)
+		Next
 	EndIf
 EndFunc		;==>GUIControlForSimpleQTrain - additional Control to Func chkUseQTrain()
 
@@ -459,4 +474,3 @@ Func chkSimpleQuickTrain()
 
 	EndIf
 EndFunc   ;==>chkSimpleQuickTrain
-; ======================== SimpleQuickTrain ========================
