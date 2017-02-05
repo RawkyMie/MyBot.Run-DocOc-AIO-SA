@@ -296,6 +296,8 @@ Func CheckSwitchAcc(); Switch CoC Account with or without sleep combo - DEMEN
 			EndIf
 			PoliteCloseCoC()
 			$iShouldRearm = True
+			$NotNeedAllTime[0] = 1
+			$NotNeedAllTime[1] = 1
 			If $ichkCloseTraining = 2 Then CloseAndroid("SwitchAcc")
 			EnableGuiControls() ; enable emulator menu controls
 			SetLog("Enable emulator menu controls due long wait time!")
@@ -431,6 +433,8 @@ Func SwitchCOCAcc()
 			checkMainScreen()
 			$bReMatchAcc = False
 			$iShouldRearm = True
+			$NotNeedAllTime[0] = 1
+			$NotNeedAllTime[1] = 1
 			$iAttackedCountSwitch = $iAttackedVillageCount[0] + $iAttackedVillageCount[1] + $iAttackedVillageCount[2] +$iAttackedVillageCount[3]
 			ExitLoop
 
