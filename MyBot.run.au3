@@ -589,8 +589,8 @@ Func Idle() ;Sequence that runs until Full Army
 
 	WEnd
 
-	If $ichkSwitchAcc = 1 Then	;	Force switching account when reach attacklimit - SwitchAcc - DEMEN
-		$bReachAttackLimit = ($iAttackedCountSwitch <= $iAttackedVillageCount[0] + $iAttackedVillageCount[1] + $iAttackedVillageCount[2] +$iAttackedVillageCount[3] - 2)
+	If $ichkSwitchAcc = 1 Then ;	Force switching account when reach attacklimit - SwitchAcc - DEMEN
+		$bReachAttackLimit = ($iAttackedCountSwitch <= $iAttackedVillageCount[0] + $iAttackedVillageCount[1] + $iAttackedVillageCount[2] + $iAttackedVillageCount[3] - 2)
 		If $bReachAttackLimit Then CheckSwitchAcc()
 	EndIf
 
