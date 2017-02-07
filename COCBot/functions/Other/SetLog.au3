@@ -172,7 +172,7 @@ Func AtkLogHead()
 	SetAtkLog(_PadStringCenter(" " & GetTranslated(601, 15, "ATTACK LOG") & " ", 71, "="), "", $COLOR_BLACK, "MS Shell Dlg", 8.5)
 	SetAtkLog(GetTranslated(601, 16, "                   --------  LOOT --------       ----- BONUS ------"), "", $COLOR_GREEN)
 	If $ichkSwitchAcc = 1 Then
-		SetAtkLog(GetTranslated(601, 20, "AC| TIME|TROP.|SEARCH|   GOLD| ELIXIR|DARK EL|TR.|S|  GOLD|ELIXIR|  DE|L."), "", $COLOR_GREEN)
+		SetAtkLog("AC|" & GetTranslated(601, 17, " TIME|TROP.|SEARCH|   GOLD| ELIXIR|DARK EL|TR.|S|  GOLD|ELIXIR|  DE|L."), "", $COLOR_GREEN)
 	Else
 		SetAtkLog(GetTranslated(601, 17, " TIME|TROP.|SEARCH|   GOLD| ELIXIR|DARK EL|TR.|S|  GOLD|ELIXIR|  DE|L."), "", $COLOR_GREEN)
 	EndIf
