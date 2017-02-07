@@ -285,13 +285,13 @@ $icmbLang = _GUICtrlComboBox_GetCurSel($cmbLang)
 GUICtrlSetData($chkchatdelay, $ichkchatdelay)
 
 ; QuicktrainCombo (Demen) - Added By NguyenAnhHD
-If $iRadio_Army12 = 1 Then
+If $iChkQuickArmy12 = 1 Then
 	GUICtrlSetState($hRadio_Army12, $GUI_CHECKED)
 Else
 	GUICtrlSetState($hRadio_Army12, $GUI_UNCHECKED)
 EndIf
 
-If $iRadio_Army123 = 1 Then
+If $iChkQuickArmy123 = 1 Then
 	GUICtrlSetState($hRadio_Army123, $GUI_CHECKED)
 Else
 	GUICtrlSetState($hRadio_Army123, $GUI_UNCHECKED)

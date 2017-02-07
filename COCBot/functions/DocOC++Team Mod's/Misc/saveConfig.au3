@@ -208,16 +208,17 @@ IniWrite($config, "global", "chdelay", GUICtrlRead($chkchatdelay))
 
 ; Quicktrain Combo (Demen) - Added By NguyenAnhHD
 If GUICtrlRead($hRadio_Army12) = $GUI_CHECKED Then
-	IniWriteS($config, "troop", "QuickTrain12", 1)
+	$iChkQuickArmy12 = 1
 Else
-	IniWriteS($config, "troop", "QuickTrain12", 0)
+	$iChkQuickArmy12 = 0
 EndIf
-
 If GUICtrlRead($hRadio_Army123) = $GUI_CHECKED Then
-	IniWriteS($config, "troop", "QuickTrain123", 1)
+	$iChkQuickArmy123 = 1
 Else
-	IniWriteS($config, "troop", "QuickTrain123", 0)
+	$iChkQuickArmy123 = 0
 EndIf
+IniWriteS($config, "troop", "QuickTrain12", $iChkQuickArmy12)
+IniWriteS($config, "troop", "QuickTrain123", $iChkQuickArmy123)
 
 ; SimpleQuicktrain (Demen) - Added By NguyenAnhHD
 If GUICtrlRead($chkSimpleQuickTrain) = $GUI_CHECKED Then

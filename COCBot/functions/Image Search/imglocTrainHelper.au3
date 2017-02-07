@@ -19,18 +19,18 @@
 
 Func imglocTestQuickTrain($quickTrainOption=0)
 	Local $currentRunState = $RunState
-	$RunState = true
+	$RunState = True
 	QuickTrain(1,True,True)
 	$RunState = $currentRunState
 EndFunc
 
 
 
-Func QuickTrain($quickTrainOption, $bOpenAndClose = True,$forceDebug=false)
-	if $debugimagesave = true then
-		$forceDebug = true
-	endif
-	if $forceDebug = true then SetLog("QUICKTRAINDEBUG : START" , $COLOR_RED)
+Func QuickTrain($quickTrainOption, $bOpenAndClose = True,$forceDebug=False)
+	If $debugimagesave = True Then
+		$forceDebug = True
+	EndIf
+	If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : START" , $COLOR_RED)
 	SetLog("Starting Quick Train", $COLOR_INFO )
 	Local $retry = 5 ;#times it retries to find buttons
 	If $bOpenAndClose = True Then
@@ -42,70 +42,87 @@ Func QuickTrain($quickTrainOption, $bOpenAndClose = True,$forceDebug=false)
 	Local $QuickTrainTabBtn
 	Local $CheckTabBtn
 
-	For $rt=0 to $retry
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : Finding QuickTrainTabBtn Retry: " & $rt , $COLOR_RED)
+	For $rt=0 To $retry
+		If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : Finding QuickTrainTabBtn Retry: " & $rt , $COLOR_RED)
 		$QuickTrainTabBtn  =  isButtonVisible("QuickTrainTabBtn",@ScriptDir & "\imgxml\newtrainwindow\QuickTrain_0_0_93.xml",$QuickTrainTabArea)
-		If $QuickTrainTabBtn <> "" then
-			if $forceDebug = true then SetLog("QUICKTRAINDEBUG : QuickTrainTabBtn  FOUND Retry: " & $rt & " Clicking Button in: " & $QuickTrainTabBtn, $COLOR_RED)
+		If $QuickTrainTabBtn <> "" Then
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : QuickTrainTabBtn  FOUND Retry: " & $rt & " Clicking Button in: " & $QuickTrainTabBtn, $COLOR_RED)
 			ClickP(decodeSingleCoord($QuickTrainTabBtn),1,300,"QuickTrainTabBtn") ; should switch to Quick Train Tab
 		Else
-			if $forceDebug = true then SetLog("QUICKTRAINDEBUG : QuickTrainTabBtn  NOT FOUND Retry: " & $rt , $COLOR_RED)
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : QuickTrainTabBtn  NOT FOUND Retry: " & $rt , $COLOR_RED)
 		EndIf
 		If _Sleep($tDelayBtn) Then Return ;forcing sleep to make next button available
-		If  $QuickTrainTabBtn <> "" then ExitLoop
-		If $forceDebug = true and $rt = $retry then DebugImageSave("QUICKTRAINDEBUG" , True)
+		If  $QuickTrainTabBtn <> "" Then ExitLoop
+		If $forceDebug = True And $rt = $retry Then DebugImageSave("QUICKTRAINDEBUG" , True)
 	Next
 
-	For $rt=0 to $retry
+	For $rt=0 To $retry
 		;now check tab area to see if tab color is white now (tab opened)
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : Finding CheckTabBtn Retry: " & $rt , $COLOR_RED)
+		If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : Finding CheckTabBtn Retry: " & $rt , $COLOR_RED)
 		$CheckTabBtn  =  isButtonVisible("CheckTabBtn",@ScriptDir & "\imgxml\newtrainwindow\CheckTab_0_0_97.xml",$QuickTrainTabArea) ;check same region for White Area when tab selected
 		If _Sleep($tDelayBtn) Then Return
-		If $CheckTabBtn <> "" then
-			if $forceDebug = true then SetLog("QUICKTRAINDEBUG : CheckTabBtn FOUND Retry: " & $rt  & " in " & $CheckTabBtn, $COLOR_RED)
+		If $CheckTabBtn <> "" Then
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : CheckTabBtn FOUND Retry: " & $rt  & " in " & $CheckTabBtn, $COLOR_RED)
 			ExitLoop
 		else
-			if $forceDebug = true then SetLog("QUICKTRAINDEBUG : CheckTabBtn NOT FOUND Retry: " & $rt , $COLOR_RED)
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : CheckTabBtn NOT FOUND Retry: " & $rt , $COLOR_RED)
 		EndIf
-		if $forceDebug = true and $rt = $retry then DebugImageSave("QUICKTRAINDEBUG" , True)
+		If $forceDebug = True And $rt = $retry Then DebugImageSave("QUICKTRAINDEBUG" , True)
 	Next
 	If $CheckTabBtn = "" Then ; not found, tab is not selected
 		SetLog("COULD NOT FIND QUICK TRAIN TAB " , $COLOR_RED)
 		If $bOpenAndClose = True Then ClickP($aAway, 1, 0, "#0000") ;Click Away
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : END" , $COLOR_RED)
+		If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : END" , $COLOR_RED)
 		Return
 	EndIf
 
-	if $forceDebug = true then SetLog("QUICKTRAINDEBUG : ALL BUTONS FOUND, CHECKING SELECTED OPTION " & $quickTrainOption , $COLOR_RED)
-	Local $selBtn=""
-	$optBtn = ""
+	If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : ALL BUTONS FOUND, CHECKING SELECTED OPTION " & $quickTrainOption , $COLOR_RED)
+	Local $selBtn[4] = ["", "", "", ""]
+	Local $optBtn[4] = ["", "", "", ""]
+	Local $region[4] = ["715,195,835,255", "725,335,840,375", "725,455,840,495", "725,570,840,615"]
+
 	Switch $quickTrainOption
 		Case 0 ; Previous Army
-			$region = "715,195,835,255"
-			$optBtn  = isButtonVisible("Previous Army",@ScriptDir & "\imgxml\newtrainwindow\TrainPrevious_0_0_92.xml",$region)
-			$selBtn	= "Previous Army"
+			$optBtn[0]  = isButtonVisible("Previous Army",@ScriptDir & "\imgxml\newtrainwindow\TrainPrevious_0_0_92.xml",$region[0])
+			$selBtn[0]	= "Previous Army"
 		Case 1 ; Army 1
-			$region = "725,335,840,375"
-			$optBtn  = isButtonVisible("Army1",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region)
-			$selBtn	= "Army1"
+			$optBtn[1]  = isButtonVisible("Army1",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[1])
+			$selBtn[1]	= "Army1"
+			SetLog("  » QuickTrain Army 1", $COLOR_ORANGE)
 		Case 2 ; Army 2
-			$region = "725,455,840,495"
-			$optBtn  = isButtonVisible("Army2",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region)
-			$selBtn	= "Army2"
+			$optBtn[2]  = isButtonVisible("Army2",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[2])
+			$selBtn[2]	= "Army2"
+			SetLog("  » QuickTrain Army 2", $COLOR_ORANGE)
 		Case 3 ; Army 3
-			$region = "725,570,840,615"
-			$optBtn  = isButtonVisible("Army3",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region)
-			$selBtn	= "Army3"
+			$optBtn[3]  = isButtonVisible("Army3",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[3])
+			$selBtn[3]	= "Army3"
+			SetLog("  » QuickTrain Army 3", $COLOR_ORANGE)
+		Case 4 ; Army 1,2
+			$optBtn[1]  = isButtonVisible("Army1",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[1])
+			$selBtn[1]	= "Army1"
+			$optBtn[2]  = isButtonVisible("Army2",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[2])
+			$selBtn[2]	= "Army2"
+			Setlog("  » QuickTrain Combo Army 12", $COLOR_ORANGE)
+		Case 5 ; Army 1,2,3
+			$optBtn[1]  = isButtonVisible("Army1",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[1])
+			$selBtn[1]	= "Army1"
+			$optBtn[2]  = isButtonVisible("Army2",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[2])
+			$selBtn[2]	= "Army2"
+			$optBtn[3]  = isButtonVisible("Army3",@ScriptDir & "\imgxml\newtrainwindow\TrainArmy_0_0_92.xml",$region[3])
+			$selBtn[3]	= "Army3"
+			Setlog("  » QuickTrain Combo Army 123", $COLOR_ORANGE)
 	EndSwitch
 
-	if $optBtn <> "" then
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : " & $selBtn & " FOUND , Clicking at " & $optBtn , $COLOR_RED)
-		ClickP(decodeSingleCoord($optBtn),1,300, $selBtn ) ;
-	else
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : COULD NOT FIND :" & $selBtn  , $COLOR_RED)
-		if $forceDebug = true then DebugImageSave("QUICKTRAINDEBUG" , True)
-		if $forceDebug = true then SetLog("QUICKTRAINDEBUG : END" , $COLOR_RED)
-	endif
+	For $i = 0 To 3
+		If $optBtn[$i] <> "" Then
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : " & $selBtn[$i] & " FOUND , Clicking at " & $optBtn[$i] , $COLOR_RED)
+			ClickP(decodeSingleCoord($optBtn[$i]),1,300, $selBtn[$i] )
+		Else
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : COULD NOT FIND :" & $selBtn[$i]  , $COLOR_RED)
+			If $forceDebug = True Then DebugImageSave("QUICKTRAINDEBUG" , True)
+			If $forceDebug = True Then SetLog("QUICKTRAINDEBUG : END" , $COLOR_RED)
+		EndIf
+	Next
 
 	SetLog("Quick Train Finished", $COLOR_INFO )
 	If $bOpenAndClose = True Then ClickP($aAway, 1, 0, "#0000") ;Click Away

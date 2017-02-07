@@ -176,25 +176,40 @@ Func AttackReport()
 	SetLog("Stars earned: " & $starsearned)
 
 	Local $AtkLogTxt
-	$AtkLogTxt = "#" & $nCurProfile & "|"
-	$AtkLogTxt &= "" & _NowTime(4) & "|"
-	$AtkLogTxt &= StringFormat("%5d", $iTrophyCurrent) & "|"
-	$AtkLogTxt &= StringFormat("%6d", $SearchCount) & "|"
-	$AtkLogTxt &= StringFormat("%7d", $iGoldLast) & "|"
-	$AtkLogTxt &= StringFormat("%7d", $iElixirLast) & "|"
-	$AtkLogTxt &= StringFormat("%7d", $iDarkLast) & "|"
-	$AtkLogTxt &= StringFormat("%3d", $iTrophyLast) & "|"
-	$AtkLogTxt &= StringFormat("%1d", $starsearned) & "|"
-	$AtkLogTxt &= StringFormat("%6d", $iGoldLastBonus) & "|"
-	$AtkLogTxt &= StringFormat("%6d", $iElixirLastBonus) & "|"
-	$AtkLogTxt &= StringFormat("%4d", $iDarkLastBonus) & "|"
-	$AtkLogTxt &= $LeagueShort & "|"
+
+	If $ichkSwitchAcc = 1 Then
+		$AtkLogTxt = String($nCurProfile) & ".|" & _NowTime(4) & "|"
+		$AtkLogTxt &= StringFormat("%5d", $iTrophyCurrent) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $SearchCount) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iGoldLast) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iElixirLast) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iDarkLast) & "|"
+		$AtkLogTxt &= StringFormat("%3d", $iTrophyLast) & "|"
+		$AtkLogTxt &= StringFormat("%1d", $starsearned) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $iGoldLastBonus) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $iElixirLastBonus) & "|"
+		$AtkLogTxt &= StringFormat("%4d", $iDarkLastBonus) & "|"
+		$AtkLogTxt &= $LeagueShort & "|"
+	Else
+		$AtkLogTxt = "" & _NowTime(4) & "|"
+		$AtkLogTxt &= StringFormat("%5d", $iTrophyCurrent) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $SearchCount) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iGoldLast) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iElixirLast) & "|"
+		$AtkLogTxt &= StringFormat("%7d", $iDarkLast) & "|"
+		$AtkLogTxt &= StringFormat("%3d", $iTrophyLast) & "|"
+		$AtkLogTxt &= StringFormat("%1d", $starsearned) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $iGoldLastBonus) & "|"
+		$AtkLogTxt &= StringFormat("%6d", $iElixirLastBonus) & "|"
+		$AtkLogTxt &= StringFormat("%4d", $iDarkLastBonus) & "|"
+		$AtkLogTxt &= $LeagueShort & "|"
+	EndIf
 
 	Local $AtkLogTxtExtend
 	$AtkLogTxtExtend = "|"
 	$AtkLogTxtExtend &= $CurCamp & "/" & $TotalCamp & "|"
 	If Int($iTrophyLast) >= 0 Then
-		SetAtkLog($AtkLogTxt, $AtkLogTxtExtend, $COLOR_BLACK)
+		SetAtkLog($AtkLogTxt, $AtkLogTxtExtend, $COLOR_GREEN)
 	Else
 		SetAtkLog($AtkLogTxt, $AtkLogTxtExtend, $COLOR_ERROR)
 	EndIf

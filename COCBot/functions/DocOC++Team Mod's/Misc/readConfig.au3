@@ -108,8 +108,8 @@ $icmbLang = IniRead($config, "Lang", "cmbLang", "8")
 $ichkchatdelay = IniRead($config, "global", "chdelay", "0")
 
 ; QuicktrainCombo (Demen) - Added By NguyenAnhHD
-IniReadS($iRadio_Army12, $config, "troop", "QuickTrain12", "0")
-IniReadS($iRadio_Army123, $config, "troop", "QuickTrain123", "0")
+IniReadS($iChkQuickArmy12, $config, "troop", "QuickTrain12", "0")
+IniReadS($iChkQuickArmy123, $config, "troop", "QuickTrain123", "0")
 
 ; SimpleQuicktrain (Demen) - Added By NguyenAnhHD
 IniReadS($ichkSimpleQuickTrain, $config, "troop", "SimpleQuickTrain", "0")
