@@ -179,19 +179,9 @@ Func AttackReport()
 
 	If $ichkSwitchAcc = 1 Then
 		$AtkLogTxt = String($nCurProfile) & ".|" & _NowTime(4) & "|"
-		$AtkLogTxt &= StringFormat("%5d", $iTrophyCurrent) & "|"
-		$AtkLogTxt &= StringFormat("%6d", $SearchCount) & "|"
-		$AtkLogTxt &= StringFormat("%7d", $iGoldLast) & "|"
-		$AtkLogTxt &= StringFormat("%7d", $iElixirLast) & "|"
-		$AtkLogTxt &= StringFormat("%7d", $iDarkLast) & "|"
-		$AtkLogTxt &= StringFormat("%3d", $iTrophyLast) & "|"
-		$AtkLogTxt &= StringFormat("%1d", $starsearned) & "|"
-		$AtkLogTxt &= StringFormat("%6d", $iGoldLastBonus) & "|"
-		$AtkLogTxt &= StringFormat("%6d", $iElixirLastBonus) & "|"
-		$AtkLogTxt &= StringFormat("%4d", $iDarkLastBonus) & "|"
-		$AtkLogTxt &= $LeagueShort & "|"
 	Else
 		$AtkLogTxt = "" & _NowTime(4) & "|"
+	EndIf
 		$AtkLogTxt &= StringFormat("%5d", $iTrophyCurrent) & "|"
 		$AtkLogTxt &= StringFormat("%6d", $SearchCount) & "|"
 		$AtkLogTxt &= StringFormat("%7d", $iGoldLast) & "|"
@@ -203,7 +193,6 @@ Func AttackReport()
 		$AtkLogTxt &= StringFormat("%6d", $iElixirLastBonus) & "|"
 		$AtkLogTxt &= StringFormat("%4d", $iDarkLastBonus) & "|"
 		$AtkLogTxt &= $LeagueShort & "|"
-	EndIf
 
 	Local $AtkLogTxtExtend
 	$AtkLogTxtExtend = "|"

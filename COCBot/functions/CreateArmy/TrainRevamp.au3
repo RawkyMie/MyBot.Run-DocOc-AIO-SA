@@ -46,6 +46,7 @@ Func TrainRevamp()
 	If $ichkSimpleQuickTrain = 1 Then			;	SimpleQuickTrain - Demen
 		If $bDonationEnabled = True And $ichkTrainDonated = 1 Then MakingDonatedTroops()
 		SimpleQuickTrain()
+		EndGainCost("Train")
 		Return
 	EndIf										;	SimpleQuickTrain - Demen
 
@@ -63,10 +64,10 @@ Func TrainRevamp()
 		If _Sleep(500) Then Return
 
 		If $iChkQuickArmy12 = 1 Then 			;	QuickTrainCombo - Demen
-			QuickTrain(4, False, false)
+			QuickTrain(4, False, False)
 			ClickP($aAway, 2, 0, "#0346")
 		ElseIf $iChkQuickArmy123 = 1 Then 	;	QuickTrainCombo - Demen
-			QuickTrain(5, False, false)
+			QuickTrain(5, False, False)
 			ClickP($aAway, 2, 0, "#0346")
 		Else
 			CheckCamp()

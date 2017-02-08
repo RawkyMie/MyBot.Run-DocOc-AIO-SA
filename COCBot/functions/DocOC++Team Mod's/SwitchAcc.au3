@@ -178,7 +178,7 @@ Func SwitchProfile($SwitchCase) ; Switch profile (1 = Active, 2 = Donate, 3 = sw
 
 	Switch $SwitchCase
 	Case 1
-		If $DonateSwitchCounter >= UBound($aDonateProfile) Then
+		If $DonateSwitchCounter >= UBound($aDonateProfile) And UBound($aDonateProfile) > 0 Then
 			$nNexProfile = $aActiveProfile[$ActiveSwitchCounter] + 1
 			$DonateSwitchCounter = 0
 		EndIf
