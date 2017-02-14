@@ -844,12 +844,12 @@ Func saveConfig() ;Saves the controls settings to the config
 
 	; boost barracks gui -> variables -------------------------------------------------
 	$icmbQuantBoostBarracks = GUICtrlRead($cmbQuantBoostBarracks)
-	$icmbBoostBarracks = GUICtrlRead($cmbBoostBarracks)
-	$icmbBoostSpellFactory = GUICtrlRead($cmbBoostSpellFactory)
+	$icmbBoostBarracks = _GUICtrlComboBox_GetCurSel($cmbBoostBarracks)
+	$icmbBoostSpellFactory = _GUICtrlComboBox_GetCurSel($cmbBoostSpellFactory)
 	$icmbBoostDarkSpellFactory = GUICtrlRead($cmbBoostDarkSpellFactory)
-	$icmbBoostBarbarianKing = GUICtrlRead($cmbBoostBarbarianKing)
-	$icmbBoostArcherQueen = GUICtrlRead($cmbBoostArcherQueen)
-	$icmbBoostWarden = GUICtrlRead($cmbBoostWarden)
+	$icmbBoostBarbarianKing = _GUICtrlComboBox_GetCurSel($cmbBoostBarbarianKing)
+	$icmbBoostArcherQueen = _GUICtrlComboBox_GetCurSel($cmbBoostArcherQueen)
+	$icmbBoostWarden = _GUICtrlComboBox_GetCurSel($cmbBoostWarden)
 
 	For $i = 0 To 23
 		If GUICtrlRead(Eval("chkBoostBarracksHours" & $i)) = $GUI_CHECKED Then

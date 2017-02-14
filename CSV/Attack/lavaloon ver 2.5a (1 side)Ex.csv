@@ -1,4 +1,4 @@
-NOTE  |Author: Ahsan - ver. 2.4a- (1 side) -External Edges-
+NOTE  |Author: Ahsan - ver. 2.5a- (1 side) -External Edges-
 NOTE  |Attack: lavaloon
 NOTE  |Make Troops: 20-30 loon , 2-3 lava, 10-30 minions, 4 wallbreaker, 12 babydrag
 NOTE  |Make Spells: 3 rage, 3-5 haste, 1 haste (CC), 1-2 freeze spell, 1 clone spell (optional)
@@ -8,7 +8,7 @@ NOTE  |Make Spells: 3 rage, 3-5 haste, 1 haste (CC), 1-2 freeze spell, 1 clone s
       |                                                                                               |
 
       |EXTR. GOLD |EXTR.ELIXIR|EXTR. DARK |DEPO. GOLD |DEPO.ELIXIR|DEPO. DARK |TOWNHALL   |FORCED SIDE|
-SIDE  |0          |0          |0          |0          |0          |5          |5          |ADefense   |
+SIDE  |0          |0          |0          |0          |0          |           |10         |           |
 
       |VECTOR_____|SIDE_______|DROP_POINTS|ADDTILES___|VERSUS_____|RANDOMX_PX_|RANDOMY_PX_|___________|
 MAKE  |A          |FRONT-LEFT |10         |1          |INT-EXT    |0          |1          |           |
@@ -31,7 +31,7 @@ DROP  |I          |1          |1          |HaSpell    |0          |0          |0
 DROP  |I          |5          |1          |HaSpell    |0          |0          |0          |           |
 DROP  |J          |5          |1          |HaSpell    |0          |0          |0          |           |
 DROP  |A-B        |9          |1          |babyd      |30-50      |0          |500-800    |           |
-DROP  |C-D        |1-10       |12         |Ball       |20-30      |30-40      |200-400    |           |
+DROP  |C-D        |2-10       |12         |Ball       |20-30      |30-40      |200-400    |           |
 DROP  |A-B        |1-10       |10         |Ball       |20-30      |30-40      |400-500    |           |
 DROP  |A          |1          |1          |babyd      |30-50      |0          |500-800    |           |
 DROP  |E          |3,9        |2          |babyd      |30-50      |0          |200-400    |           |
@@ -51,7 +51,7 @@ DROPS |EAGLE      |R:T,B:F,S:A    |1          |FSpell     |0          |0        
       |VECTOR_____|INDEX______|QTY_X_VECT_|TROOPNAME__|DELAY_DROP_|DELAYCHANGE|SLEEPAFTER_|           |
 DROP  |M          |1          |1          |RSpell     |0          |0          |100        |           |
 DROP  |M          |6          |1          |RSpell     |0          |0          |100        |           |
-DROP  |N          |6          |1          |RSpell     |0          |0          |3000-4000  |           |
+DROP  |N          |6          |1          |RSpell     |0          |0          |4000-4500  |           |
 DROP  |P          |4          |1          |HaSpell    |0          |0          |0          |           |
 RECALC|           |           |           |           |           |           |           |           |
 DROP  |O          |4          |1          |HaSpell    |0          |0          |0          |           |
